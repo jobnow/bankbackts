@@ -5,18 +5,18 @@ import User from '@modules/users/infra/typeorm/entities/User';
 import IUsersRepository from '@modules/users/repositories/IUsersRepository';
 
 interface IRequest {
-  except_user_id: string;
+  user_id: string;
 }
 
 @injectable()
-class ShowProfileService {
+class ShowUserService {
   constructor(
     @inject('UsersRepository')
     private usersRepository: IUsersRepository,
   ) {}
 
-  public async execute({ except_user_id }: IRequest): Promise<User> {
-    const user = await this.usersRepository.findAllProvider(except_user_id);
+  public async execute({ user_id }: IRequest): Promise<User> {
+    const user = await this.usersRepository.findById(user_id);
 
     if (!user) {
       throw new AppError('User not found');
@@ -26,4 +26,4 @@ class ShowProfileService {
   }
 }
 
-export default ShowProfileService;
+export default ShowUserService;

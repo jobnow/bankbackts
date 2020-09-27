@@ -22,7 +22,9 @@
         "pm2": "^4.4.1",
         "reflect-metadata": "^0.1.13",
         "typeorm": "^0.2.24",
-        "uuidv4": "^6.0.7"
+        "uuidv4": "^6.0.7",
+        "ts-node-dev": "^1.0.0-pre.44",
+        "typescript": "^3.9.7"
     },
     "devDependencies": {
         "@types/bcryptjs": "^2.4.2",

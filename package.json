@@ -11,6 +11,7 @@
     "eject": "react-scripts eject",
     "deploy": "aws s3 sync build/ s3://app.bankpague.com --acl public-read"
   },
+
   "browserslist": {
     "production": [
       ">0.2%",
@@ -78,6 +79,9 @@
     "prettier": "^2.0.5",
     "react-app-rewired": "^2.1.5",
     "react-test-renderer": "^16.13.1"
+  },
+    "engines": {
+     "node": "12.x"
   },
   "jest": {
     "collectCoverageFrom": [

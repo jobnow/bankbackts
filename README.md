@@ -1,92 +1,69 @@
-<h1 align="center">
-  <img alt="Bank Pague" title="Bank Pague" src="https://raw.githubusercontent.com/tavareshenrique/go-barber-web-ts/978ed5243127026498b2981e003ec3621ae3be0e/src/assets/logo.svg" width="300px" />
-</h1>
+# Recuperação de senha
 
-<p align="center">
-  <img alt="Last commit on GitHub" src="https://img.shields.io/github/last-commit/tavareshenrique/go-barber-web-ts?color=7D40E7">
-  <img alt="Made by Henrique Tavares" src="https://img.shields.io/badge/made%20by-Henrique Tavares-%20?color=7D40E7">
-  <img alt="Project top programing language" src="https://img.shields.io/github/languages/top/tavareshenrique/go-barber-web-ts?color=7D40E7">
-  <img alt="Repository size" src="https://img.shields.io/github/repo-size/tavareshenrique/go-barber-web-ts?color=7D40E7">
-  <img alt="GitHub license" src="https://img.shields.io/github/license/tavareshenrique/go-barber-web-ts?color=7D40E7">
-</p>
+**RF**
 
-<p align="center">
-  <a href="#information_source-how-to-use">ℹ️ How To Use</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#rocket-technologies">🚀 Technologies</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#computer-author">💻 Author</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#memo-license">📝 License</a>
-</p>
+- O usuário deve poder recuperar sua senha informando o seu e-mail;
+- O usuário deve receber um e-mail com instruções de recuperação de senha;
+- O usuário deve poder resetar sua senha;
 
-<p align="center">
-  Bank Pague is a project developed on the Rocketseat Bootcamp GoStack 11. This project was developed using TypeScript with ReactJS.
-</p>
+**RNF**
 
----
+- Utilizar Mailtrap para testar envios em ambiente de dev;
+- Utilizar Amazon SES para envios em produção;
+- O envio de e-mails deve acontecer em segundo plano (background job);
 
-![preview1](./src/assets/preview/preview1.gif)
+**RN**
 
-![preview2](./src/assets/preview/preview2.gif)
+- O link enviado por email para resetar senha, deve expirar em 2h;
+- O usuário precisa confirmar a nova senha ao resetar sua senha;
 
-# :information_source: How To Use
+# Atualização do perfil
 
-Clone the repository
+**RF**
 
-```bash
-git clone https://github.com/tavareshenrique/go-barber-web-ts
-```
+- O usuário deve poder atualizar seu nome, email e senha;
 
-```bash
-# Install the dependencies
-yarn
-# or
-npm install
+**RN**
 
-# Run the Bank Pague API before running the Bank Pague project
-https://github.com/tavareshenrique/go-barber-api-ts
+- O usuário não pode alterar seu email para um email já utilizado;
+- Para atualizar sua senha, o usuário deve informar a senha antiga;
+- Para atualizar sua senha, o usuário precisa confirmar a nova senha;
 
-# Run Bank Pague
-yarn start
-# or
-npm start
-```
+# Painel do prestador
 
-# :rocket: Technologies
+**RF**
 
-- [ReactJS](https://pt-br.reactjs.org/)
-- [TypeScript](https://www.typescriptlang.org/)
-- [Rocketseat/Unform](https://github.com/Rocketseat/unform)
-- [Axios](https://github.com/axios/axios)
-- [date-fns](https://date-fns.org/)
-- [Polished](https://github.com/styled-components/polished)
-- [uuidv4](https://github.com/thenativeweb/uuidv4)
-- [React Icons](https://react-icons.netlify.com/#/)
-- [Reactotron](https://github.com/infinitered/reactotron)
-- [Styled Components](https://www.styled-components.com/)
-- [yup](https://github.com/jquense/yup)
-- [ESLint](https://eslint.org/)
-- [Prettier](https://prettier.io/)
-- [React App Rewired](https://github.com/timarney/react-app-rewired)
+- O usuário deve poder listar seus agendamentos de um dia específico;
+- O prestador deve receber uma notificação sempre que houver um novo agendamento;
+- O prestador deve poder visualizar as notificações não lidas;
 
-# :computer: Author
+**RNF**
 
-<table>
-  <tr>
-    <td align="center">
-      <a href="http://github.com/tavareshenrique/">
-        <img src="https://avatars1.githubusercontent.com/u/27022914?v=4" width="100px;" alt="Henrique Tavares"/>
-        <br />
-        <sub>
-          <b>Henrique Tavares</b>
-        </sub>
-       </a>
-       <br />
-       <a href="https://www.linkedin.com/in/tavareshenrique/" title="Linkedin">@tavareshenrique</a>
-       <br />
-       <a href="https://github.com/tavareshenrique/go-barber-web-ts/commits?author=tavareshenrique" title="Code">💻</a>
-    </td>
-  </tr>
-</table>
+- Os agendamentos do prestador no dia devem ser armazenados em cache;
+- As notificações do prestador devem ser armazenadas no MongoDB;
+- As notificações do prestador devem ser enviadas em tempo-real utilizando Socket.io;
 
-# :memo: License
+**RN**
 
-This project is licensed under the MIT license - see the archive [LICENSE.md](https://github.com/tavareshenrique/go-barber-web-ts/blob/master/LICENSE.md) for details.
+- A notificação deve ter um status de lida ou não-lida para que o prestador possa controlar;
+
+# Agendamento de serviços
+
+**RF**
+
+- O usuário deve poder listar todos prestadores de serviço cadastrados;
+- O usuário deve poder listar os dias de um mês com pelo menos um horário disponível de um prestador;
+- O usuário deve poder listar horários disponíveis em um dia específico de um prestador;
+- O usuário deve poder realizar um novo agendamento com um prestador;
+
+**RNF**
+
+- A listagem de prestadores deve ser armazenada em cache;
+
+**RN**
+
+- Os agendamentos devem estar disponíveis entre 8h às 18h (Primeiro às 8h, último às 17h);
+- O usuário não pode agendar em um horário que já passou;
+- O usuário não pode agendar serviços consigo mesmo;
+- Cada agendamento deve durar 1h exatamente;
+- O usuário não pode agendar em um horário já ocupado;

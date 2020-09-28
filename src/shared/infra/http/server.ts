@@ -38,7 +38,7 @@ app.use((err: Error, request: Request, response: Response, _: NextFunction) => {
   });
 });
 
-app.listen(8080, () => {
+app.listen(process.env.PORT || 3333, () => {
   // eslint-disable-next-line no-console
   console.log('🚀 Server started on port 3333!');
 });

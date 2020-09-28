@@ -1,18 +1,28 @@
 import { Router } from 'express';
 import multer from 'multer';
 import uploadConfig from '@config/upload';
-import { celebrate, Segments, Joi } from 'celebrate';
-
+import ensureAuthenticated from '@modules/users/infra/http/middlewares/ensureAuthenticated';
+import { celebrate, Joi, Segments } from 'celebrate';
+import { getCustomRepository } from 'typeorm';
+import UsersRepository from '../../../repositories/UsersRepository';
 import UsersController from '../controllers/UsersController';
 import UserAvatarController from '../controllers/UserAvatarController';
 
-import ensureAuthenticated from '../middlewares/ensureAuthenticated';
-
 const usersRouter = Router();
+
+const upload = multer(uploadConfig.multer);
+
+
 const usersController = new UsersController();
 const userAvatarController = new UserAvatarController();
 
-const upload = multer(uploadConfig.multer);
+
+usersRouter.get('/', async (request, response) => {
+  const usersRepository = getCustomRepository(UsersRepository);
+  const appointments = await usersRepository.find();
+
+  return response.json(appointments);
+});
 
 usersRouter.post(
   '/',

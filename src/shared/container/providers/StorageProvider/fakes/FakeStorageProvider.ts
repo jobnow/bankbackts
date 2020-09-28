@@ -5,7 +5,6 @@ class FakeStorageProvider implements IStorageProvider {
 
   public async saveFile(file: string): Promise<string> {
     this.storage.push(file);
-
     return file;
   }
 

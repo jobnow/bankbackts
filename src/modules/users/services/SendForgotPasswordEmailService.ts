@@ -1,8 +1,8 @@
-import { injectable, inject } from 'tsyringe';
-import path from 'path';
-
+// import User from '@modules/users/infra/typeorm/entities/User';
 import AppError from '@shared/errors/AppError';
+import { injectable, inject } from 'tsyringe';
 import IMailProvider from '@shared/container/providers/MailProvider/models/IMailProvider';
+import path from 'path';
 import IUsersRepository from '../repositories/IUsersRepository';
 import IUserTokensRepository from '../repositories/IUserTokensRepository';
 
@@ -40,11 +40,8 @@ class SendForgotPasswordEmailService {
     );
 
     await this.mailProvider.sendMail({
-      to: {
-        name: user.name,
-        email: user.email,
-      },
-      subject: '[GoBarber] Recuperação de senha',
+      to: { name: user.name, email: user.email },
+      subject: 'Recuperação de senha',
       templateData: {
         file: forgotPasswordTemplate,
         variables: {

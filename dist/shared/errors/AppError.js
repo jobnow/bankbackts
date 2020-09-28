@@ -15,5 +15,4 @@ class AppError {
 
 }
 
-var _default = AppError;
-exports.default = _default;
+exports.default = AppError;

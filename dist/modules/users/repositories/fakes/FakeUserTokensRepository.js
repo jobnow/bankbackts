@@ -23,14 +23,14 @@ class FakeUserTokensRepository {
       token: (0, _uuidv.uuid)(),
       user_id,
       created_at: new Date(),
-      updated_at: new Date()
+      update_at: new Date()
     });
     this.userTokens.push(userToken);
     return userToken;
   }
 
   async findByToken(token) {
-    const userToken = this.userTokens.find(findToken => findToken.token === token);
+    const userToken = this.userTokens.find(user => user.token === token);
     return userToken;
   }
 

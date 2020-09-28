@@ -18,12 +18,12 @@ class UserTokensRepository {
   }
 
   async findByToken(token) {
-    const userToken = await this.ormRepository.findOne({
+    const user = await this.ormRepository.findOne({
       where: {
         token
       }
     });
-    return userToken;
+    return user;
   }
 
   async generate(user_id) {

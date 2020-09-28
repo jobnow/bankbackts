@@ -5,11 +5,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
+var _AppError = _interopRequireDefault(require("../../../shared/errors/AppError"));
+
 var _tsyringe = require("tsyringe");
 
 var _dateFns = require("date-fns");
-
-var _AppError = _interopRequireDefault(require("../../../shared/errors/AppError"));
 
 var _IUsersRepository = _interopRequireDefault(require("../repositories/IUsersRepository"));
 
@@ -47,13 +47,12 @@ let ResetPasswordService = (_dec = (0, _tsyringe.injectable)(), _dec2 = function
     const user = await this.usersRepository.findById(userToken.user_id);
 
     if (!user) {
-      throw new _AppError.default('User does not exists');
+      throw new _AppError.default('User token does not exists');
     }
 
     const tokenCreatedAt = userToken.created_at;
-    const compareDate = (0, _dateFns.addHours)(tokenCreatedAt, 2);
 
-    if ((0, _dateFns.isAfter)(Date.now(), compareDate)) {
+    if ((0, _dateFns.differenceInHours)(Date.now(), tokenCreatedAt) > 2) {
       throw new _AppError.default('Token expired.');
     }
 

@@ -9,13 +9,13 @@ var _jsonwebtoken = require("jsonwebtoken");
 
 var _auth = _interopRequireDefault(require("../../../config/auth"));
 
-var _tsyringe = require("tsyringe");
-
 var _AppError = _interopRequireDefault(require("../../../shared/errors/AppError"));
 
-var _IUsersRepository = _interopRequireDefault(require("../repositories/IUsersRepository"));
+var _tsyringe = require("tsyringe");
 
 var _IHashProvider = _interopRequireDefault(require("../providers/HashProvider/models/IHashProvider"));
+
+var _IUsersRepository = _interopRequireDefault(require("../repositories/IUsersRepository"));
 
 var _dec, _dec2, _dec3, _dec4, _dec5, _class;
 
@@ -55,6 +55,7 @@ let AuthenticateUserService = (_dec = (0, _tsyringe.injectable)(), _dec2 = funct
       subject: user.id,
       expiresIn
     });
+    delete user.password;
     return {
       user,
       token

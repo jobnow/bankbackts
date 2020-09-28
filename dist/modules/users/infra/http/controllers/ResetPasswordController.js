@@ -18,9 +18,9 @@ class ResetPasswordController {
       token
     } = request.body;
 
-    const resetPassword = _tsyringe.container.resolve(_ResetPasswordService.default);
+    const resetPasswordService = _tsyringe.container.resolve(_ResetPasswordService.default);
 
-    await resetPassword.execute({
+    await resetPasswordService.execute({
       token,
       password
     });

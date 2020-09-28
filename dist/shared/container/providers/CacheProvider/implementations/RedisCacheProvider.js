@@ -11,7 +11,7 @@ var _cache = _interopRequireDefault(require("../../../../../config/cache"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-class RedisCacheProvider {
+class RedisCachePRovider {
   constructor() {
     this.client = void 0;
     this.client = new _ioredis.default(_cache.default.config.redis);
@@ -37,9 +37,9 @@ class RedisCacheProvider {
   }
 
   async invalidatePrefix(prefix) {
-    const keys = await this.client.keys(`${prefix}:*`);
+    const keys = this.client.keys(`${prefix}:*`);
     const pipeline = this.client.pipeline();
-    keys.forEach(key => {
+    (await keys).forEach(key => {
       pipeline.del(key);
     });
     await pipeline.exec();
@@ -47,4 +47,4 @@ class RedisCacheProvider {
 
 }
 
-exports.default = RedisCacheProvider;
+exports.default = RedisCachePRovider;

@@ -7,9 +7,9 @@ exports.default = void 0;
 
 var _tsyringe = require("tsyringe");
 
-var _classTransformer = require("class-transformer");
-
 var _AuthenticateUserService = _interopRequireDefault(require("../../../services/AuthenticateUserService"));
+
+var _classTransformer = require("class-transformer");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -20,12 +20,12 @@ class SessionsController {
       password
     } = request.body;
 
-    const authenticateUser = _tsyringe.container.resolve(_AuthenticateUserService.default);
+    const authenticateUserService = _tsyringe.container.resolve(_AuthenticateUserService.default);
 
     const {
       user,
       token
-    } = await authenticateUser.execute({
+    } = await authenticateUserService.execute({
       email,
       password
     });

@@ -17,7 +17,7 @@ function ensureAuthenticated(request, response, next) {
   const authHeader = request.headers.authorization;
 
   if (!authHeader) {
-    throw new _AppError.default('JWT token is missing', 401);
+    throw new _AppError.default('JTW token is missing', 401);
   }
 
   const [, token] = authHeader.split(' ');
@@ -32,6 +32,6 @@ function ensureAuthenticated(request, response, next) {
     };
     return next();
   } catch {
-    throw new _AppError.default('Invalid JWT token', 401);
+    throw new _AppError.default('Invalid JTW token', 401);
   }
 }

@@ -16,19 +16,19 @@ var _ResetPasswordController = _interopRequireDefault(require("../controllers/Re
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 const passwordRouter = (0, _express.Router)();
-const forgotPasswordController = new _ForgotPasswordController.default();
-const resetPasswordController = new _ResetPasswordController.default();
+const passwordController = new _ForgotPasswordController.default();
+const resetController = new _ResetPasswordController.default();
 passwordRouter.post('/forgot', (0, _celebrate.celebrate)({
   [_celebrate.Segments.BODY]: {
-    email: _celebrate.Joi.string().email().required()
+    email: _celebrate.Joi.string().required()
   }
-}), forgotPasswordController.create);
+}), passwordController.create);
 passwordRouter.post('/reset', (0, _celebrate.celebrate)({
   [_celebrate.Segments.BODY]: {
     token: _celebrate.Joi.string().uuid().required(),
     password: _celebrate.Joi.string().required(),
     password_confirmation: _celebrate.Joi.string().required().valid(_celebrate.Joi.ref('password'))
   }
-}), resetPasswordController.create);
+}), resetController.create);
 var _default = passwordRouter;
 exports.default = _default;

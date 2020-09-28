@@ -5,9 +5,9 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _tsyringe = require("tsyringe");
-
 var _AppError = _interopRequireDefault(require("../../../shared/errors/AppError"));
+
+var _tsyringe = require("tsyringe");
 
 var _IHashProvider = _interopRequireDefault(require("../providers/HashProvider/models/IHashProvider"));
 
@@ -37,33 +37,34 @@ let UpdateProfileService = (_dec = (0, _tsyringe.injectable)(), _dec2 = function
     const user = await this.usersRepository.findById(user_id);
 
     if (!user) {
-      throw new _AppError.default('User not found.');
+      throw new _AppError.default('User not found');
     }
 
     const userWithUpdatedEmail = await this.usersRepository.findByEmail(email);
 
     if (userWithUpdatedEmail && userWithUpdatedEmail.id !== user_id) {
-      throw new _AppError.default('E-mail already in use.');
+      throw new _AppError.default('Already have a user with this email');
     }
 
     user.name = name;
     user.email = email;
 
     if (password && !old_password) {
-      throw new _AppError.default('You need to inform the old password to set a new password.');
+      throw new _AppError.default('You need to inform the old password to set a new password');
     }
 
     if (password && old_password) {
       const checkOldPassword = await this.hashProvider.compareHash(old_password, user.password);
 
       if (!checkOldPassword) {
-        throw new _AppError.default('Old password does not match.');
+        throw new _AppError.default('Old password does not macth');
       }
 
       user.password = await this.hashProvider.generateHash(password);
     }
 
-    return this.usersRepository.save(user);
+    await this.usersRepository.save(user);
+    return user;
   }
 
 }) || _class) || _class) || _class) || _class) || _class);

@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 var _default = {
   jwt: {
-    secret: process.env.APP_SECRET || 'default',
+    secret: process.env.APP_SECRET || 'default_test',
     expiresIn: '1d'
   }
 };

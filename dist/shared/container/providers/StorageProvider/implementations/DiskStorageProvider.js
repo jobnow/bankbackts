@@ -15,7 +15,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 class DiskStorageProvider {
   async saveFile(file) {
-    await _fs.default.promises.rename(_path.default.resolve(_upload.default.tmpFolder, file), _path.default.resolve(_upload.default.uploadsFolder, file));
+    await _fs.default.promises.rename(_path.default.resolve(_upload.default.tempFolder, file), _path.default.resolve(_upload.default.uploadsFolder, file));
     return file;
   }
 

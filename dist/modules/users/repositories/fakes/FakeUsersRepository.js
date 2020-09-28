@@ -16,16 +16,6 @@ class FakeUsersRepository {
     this.users = [];
   }
 
-  async findById(id) {
-    const findUser = this.users.find(user => user.id === id);
-    return findUser;
-  }
-
-  async findByEmail(email) {
-    const findUser = this.users.find(user => user.email === email);
-    return findUser;
-  }
-
   async findAllProviders({
     except_user_id
   }) {
@@ -38,6 +28,14 @@ class FakeUsersRepository {
     }
 
     return users;
+  }
+
+  async findById(id) {
+    return this.users.find(user => user.id === id);
+  }
+
+  async findByEmail(email) {
+    return this.users.find(user => user.email === email);
   }
 
   async create(userData) {

@@ -11,13 +11,13 @@ var _path = _interopRequireDefault(require("path"));
 
 var _mime = _interopRequireDefault(require("mime"));
 
-var _awsSdk = _interopRequireDefault(require("aws-sdk"));
-
 var _upload = _interopRequireDefault(require("../../../../../config/upload"));
+
+var _awsSdk = _interopRequireDefault(require("aws-sdk"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-class DiskStorageProvider {
+class S3StorageProvider {
   constructor() {
     this.client = void 0;
     this.client = new _awsSdk.default.S3({
@@ -26,7 +26,7 @@ class DiskStorageProvider {
   }
 
   async saveFile(file) {
-    const originalPath = _path.default.resolve(_upload.default.tmpFolder, file);
+    const originalPath = _path.default.resolve(_upload.default.tempFolder, file);
 
     const ContentType = _mime.default.getType(originalPath);
 
@@ -55,5 +55,5 @@ class DiskStorageProvider {
 
 }
 
-var _default = DiskStorageProvider;
+var _default = S3StorageProvider;
 exports.default = _default;

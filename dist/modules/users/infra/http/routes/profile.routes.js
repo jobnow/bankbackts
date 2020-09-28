@@ -7,16 +7,16 @@ exports.default = void 0;
 
 var _express = require("express");
 
+var _ensureAuthenticated = _interopRequireDefault(require("../middlewares/ensureAuthenticated"));
+
 var _celebrate = require("celebrate");
 
 var _ProfileController = _interopRequireDefault(require("../controllers/ProfileController"));
 
-var _ensureAuthenticated = _interopRequireDefault(require("../middlewares/ensureAuthenticated"));
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-const profileRouter = (0, _express.Router)();
 const profileController = new _ProfileController.default();
+const profileRouter = (0, _express.Router)();
 profileRouter.use(_ensureAuthenticated.default);
 profileRouter.get('/', profileController.show);
 profileRouter.put('/', (0, _celebrate.celebrate)({
@@ -25,7 +25,7 @@ profileRouter.put('/', (0, _celebrate.celebrate)({
     email: _celebrate.Joi.string().email().required(),
     old_password: _celebrate.Joi.string(),
     password: _celebrate.Joi.string(),
-    password_confirmation: _celebrate.Joi.string().valid(_celebrate.Joi.ref('password'))
+    confirmed_password: _celebrate.Joi.string().valid(_celebrate.Joi.ref('password'))
   }
 }), profileController.update);
 var _default = profileRouter;

@@ -5,13 +5,13 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _tsyringe = require("tsyringe");
-
-var _path = _interopRequireDefault(require("path"));
-
 var _AppError = _interopRequireDefault(require("../../../shared/errors/AppError"));
 
+var _tsyringe = require("tsyringe");
+
 var _IMailProvider = _interopRequireDefault(require("../../../shared/container/providers/MailProvider/models/IMailProvider"));
+
+var _path = _interopRequireDefault(require("path"));
 
 var _IUsersRepository = _interopRequireDefault(require("../repositories/IUsersRepository"));
 
@@ -54,7 +54,7 @@ let SendForgotPasswordEmailService = (_dec = (0, _tsyringe.injectable)(), _dec2 
         name: user.name,
         email: user.email
       },
-      subject: '[GoBarber] Recuperação de senha',
+      subject: 'Recuperação de senha',
       templateData: {
         file: forgotPasswordTemplate,
         variables: {

@@ -3,8 +3,8 @@ import multer from 'multer';
 import uploadConfig from '@config/upload';
 import ensureAuthenticated from '@modules/users/infra/http/middlewares/ensureAuthenticated';
 import { celebrate, Joi, Segments } from 'celebrate';
-import { getCustomRepository } from 'typeorm';
-import UsersRepository from '../../../repositories/UsersRepository';
+// import { getCustomRepository } from 'typeorm';
+// import UsersRepository from '../../../repositories/UsersRepository';
 import UsersController from '../controllers/UsersController';
 import UserAvatarController from '../controllers/UserAvatarController';
 
@@ -17,12 +17,12 @@ const usersController = new UsersController();
 const userAvatarController = new UserAvatarController();
 
 
-usersRouter.get('/', async (request, response) => {
-  const usersRepository = getCustomRepository(UsersRepository);
-  const appointments = await usersRepository.find();
+// usersRouter.get('/', async (request, response) => {
+//   const usersRepository = getCustomRepository(UsersRepository);
+//   const appointments = await usersRepository.find();
 
-  return response.json(appointments);
-});
+//   return response.json(appointments);
+// });
 
 usersRouter.post(
   '/',

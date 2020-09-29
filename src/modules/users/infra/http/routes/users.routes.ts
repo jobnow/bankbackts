@@ -9,10 +9,21 @@ import UserAvatarController from '@modules/users/infra/http/controllers/UserAvat
 
 import ensureAuthenticated from '@modules/users/infra/http/middlewares/ensureAuthenticated';
 
+import { getCustomRepository } from 'typeorm';
+import UsersRepository from '../../../repositories/UserRepository';
+
 const usersRouter = Router();
 const usersController = new UsersController();
 const userAvatarController = new UserAvatarController();
 const upload = multer(uploadConfig.multer);
+
+usersRouter.get('/', async (request, response) => {
+  const usersRepository = getCustomRepository(UsersRepository);
+  const appointments = await usersRepository.find();
+
+  return response.json(appointments);
+});
+
 
 usersRouter.post(
   '/',

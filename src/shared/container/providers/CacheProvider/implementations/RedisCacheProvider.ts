@@ -1,24 +1,27 @@
-import Redis, { Redis as IRedis } from 'ioredis';
+import Redis, { Redis as RedisClient } from 'ioredis';
 import cacheConfig from '@config/cache';
-import ICacheProvider from '../models/ICacheProvider';
+import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICacheProvider';
 
-export default class RedisCachePRovider implements ICacheProvider {
-  private client: IRedis;
+export default class RedisCacheProvider implements ICacheProvider {
+  private client: RedisClient;
 
   constructor() {
     this.client = new Redis(cacheConfig.config.redis);
   }
 
   public async save(key: string, value: any): Promise<void> {
-    await this.client.set(key, JSON.stringify(value));
+    this.client.set(key, JSON.stringify(value));
   }
 
   public async recover<T>(key: string): Promise<T | null> {
     const data = await this.client.get(key);
+
     if (!data) {
       return null;
     }
-    const parsedData = JSON.parse(data) as T;
+
+    const parsedData = JSON.parse(data);
+
     return parsedData;
   }
 
@@ -27,11 +30,11 @@ export default class RedisCachePRovider implements ICacheProvider {
   }
 
   public async invalidatePrefix(prefix: string): Promise<void> {
-    const keys = this.client.keys(`${prefix}:*`);
+    const keys = await this.client.keys(`${prefix}:*`);
 
     const pipeline = this.client.pipeline();
 
-    (await keys).forEach(key => {
+    keys.forEach(key => {
       pipeline.del(key);
     });
 

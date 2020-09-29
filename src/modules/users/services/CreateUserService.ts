@@ -1,9 +1,11 @@
-import User from '@modules/users/infra/typeorm/entities/User';
+import { inject, injectable } from 'tsyringe';
+
 import AppError from '@shared/errors/AppError';
-import { injectable, inject } from 'tsyringe';
+import IUsersRepository from '@modules/users/repositories/IUsersRepository';
 import IHashProvider from '@modules/users/providers/HashProvider/models/IHashProvider';
 import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICacheProvider';
-import IUsersRepository from '../repositories/IUsersRepository';
+
+import User from '@modules/users/infra/typeorm/entities/User';
 
 interface IRequest {
   name: string;
@@ -33,7 +35,7 @@ class CreateUserService {
 
     const hashedPassword = await this.hashProvider.generateHash(password);
 
-    const user = await this.usersRepository.create({
+    const user = this.usersRepository.create({
       name,
       email,
       password: hashedPassword,

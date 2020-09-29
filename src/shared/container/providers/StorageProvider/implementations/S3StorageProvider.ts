@@ -1,19 +1,21 @@
 import fs from 'fs';
 import path from 'path';
 import mime from 'mime';
-import uploadConfig from '@config/upload';
 import aws, { S3 } from 'aws-sdk';
-import IStorageProvider from '../models/IStorageProvider';
+import uploadConfig from '@config/upload';
+import IStorageProvider from '@shared/container/providers/StorageProvider/models/IStorageProvider';
 
-class S3StorageProvider implements IStorageProvider {
+class DiskStorageProvider implements IStorageProvider {
   private client: S3;
 
   constructor() {
-    this.client = new aws.S3({ region: 'us-east-1' });
+    this.client = new aws.S3({
+      region: 'us-east-1',
+    });
   }
 
   public async saveFile(file: string): Promise<string> {
-    const originalPath = path.resolve(uploadConfig.tempFolder, file);
+    const originalPath = path.resolve(uploadConfig.tmpFolder, file);
 
     const ContentType = mime.getType(originalPath);
 
@@ -27,9 +29,10 @@ class S3StorageProvider implements IStorageProvider {
       .putObject({
         Bucket: uploadConfig.config.aws.bucket,
         Key: file,
-        ACL: 'public-read',
+        ACL: 'pulic-read',
         Body: fileContent,
         ContentType,
+        ContentDisposition: `inline; filename=${file}`,
       })
       .promise();
 
@@ -48,4 +51,4 @@ class S3StorageProvider implements IStorageProvider {
   }
 }
 
-export default S3StorageProvider;
+export default DiskStorageProvider;

@@ -17,6 +17,20 @@ class UsersRepository {
     this.ormRepository = (0, _typeorm.getRepository)(_User.default);
   }
 
+  async findById(id) {
+    const user = await this.ormRepository.findOne(id);
+    return user;
+  }
+
+  async findByEmail(email) {
+    const user = await this.ormRepository.findOne({
+      where: {
+        email
+      }
+    });
+    return user;
+  }
+
   async findAllProviders({
     except_user_id
   }) {
@@ -33,20 +47,6 @@ class UsersRepository {
     }
 
     return users;
-  }
-
-  async findById(id) {
-    const user = await this.ormRepository.findOne(id);
-    return user;
-  }
-
-  async findByEmail(email) {
-    const user = await this.ormRepository.findOne({
-      where: {
-        email
-      }
-    });
-    return user;
   }
 
   async create(userData) {

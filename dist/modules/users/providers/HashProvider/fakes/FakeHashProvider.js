@@ -5,7 +5,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-class FakeHashProvider {
+class BCryptHashProvider {
   async generateHash(payload) {
     return payload;
   }
@@ -16,5 +16,5 @@ class FakeHashProvider {
 
 }
 
-var _default = FakeHashProvider;
+var _default = BCryptHashProvider;
 exports.default = _default;

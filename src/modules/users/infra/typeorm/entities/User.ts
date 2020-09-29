@@ -7,7 +7,7 @@ import {
 } from 'typeorm';
 import uploadConfig from '@config/upload';
 
-import { Expose, Exclude } from 'class-transformer';
+import { Exclude, Expose } from 'class-transformer';
 
 @Entity('users')
 class User {
@@ -38,10 +38,10 @@ class User {
     if (!this.avatar) {
       return null;
     }
+
     switch (uploadConfig.driver) {
       case 'disk':
         return `${process.env.APP_API_URL}/files/${this.avatar}`;
-
       case 's3':
         return `https://${uploadConfig.config.aws.bucket}.s3.amazonaws.com/${this.avatar}`;
       default:

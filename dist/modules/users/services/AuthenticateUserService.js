@@ -7,15 +7,15 @@ exports.default = void 0;
 
 var _jsonwebtoken = require("jsonwebtoken");
 
+var _tsyringe = require("tsyringe");
+
 var _auth = _interopRequireDefault(require("../../../config/auth"));
 
 var _AppError = _interopRequireDefault(require("../../../shared/errors/AppError"));
 
-var _tsyringe = require("tsyringe");
+var _IUsersRepository = _interopRequireDefault(require("../repositories/IUsersRepository"));
 
 var _IHashProvider = _interopRequireDefault(require("../providers/HashProvider/models/IHashProvider"));
-
-var _IUsersRepository = _interopRequireDefault(require("../repositories/IUsersRepository"));
 
 var _dec, _dec2, _dec3, _dec4, _dec5, _class;
 
@@ -47,15 +47,10 @@ let AuthenticateUserService = (_dec = (0, _tsyringe.injectable)(), _dec2 = funct
       throw new _AppError.default('Incorrect email/password combination.', 401);
     }
 
-    const {
-      secret,
-      expiresIn
-    } = _auth.default.jwt;
-    const token = (0, _jsonwebtoken.sign)({}, secret, {
+    const token = (0, _jsonwebtoken.sign)({}, _auth.default.jwt.secret, {
       subject: user.id,
-      expiresIn
+      expiresIn: _auth.default.jwt.expiresIn
     });
-    delete user.password;
     return {
       user,
       token

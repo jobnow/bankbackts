@@ -2,67 +2,69 @@
 
 var _AppError = _interopRequireDefault(require("../../../shared/errors/AppError"));
 
-var _FakeHashProvider = _interopRequireDefault(require("../providers/HashProvider/fakes/FakeHashProvider"));
-
 var _FakeUsersRepository = _interopRequireDefault(require("../repositories/fakes/FakeUsersRepository"));
 
-var _ResetPasswordService = _interopRequireDefault(require("./ResetPasswordService"));
+var _FakeUsersTokensRepository = _interopRequireDefault(require("../repositories/fakes/FakeUsersTokensRepository"));
 
-var _FakeUserTokensRepository = _interopRequireDefault(require("../repositories/fakes/FakeUserTokensRepository"));
+var _FakeHashProvider = _interopRequireDefault(require("../providers/HashProvider/fakes/FakeHashProvider"));
+
+var _ResetPasswordService = _interopRequireDefault(require("./ResetPasswordService"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 let fakeUsersRepository;
-let fakeUserTokensRepository;
-let resetPassword;
+let fakeUsersTokensRepository;
 let fakeHashProvider;
-describe('ResetPasswordService', () => {
+let resetPassword;
+describe('ResetPassword', () => {
   beforeEach(() => {
     fakeUsersRepository = new _FakeUsersRepository.default();
-    fakeUserTokensRepository = new _FakeUserTokensRepository.default();
+    fakeUsersTokensRepository = new _FakeUsersTokensRepository.default();
     fakeHashProvider = new _FakeHashProvider.default();
-    resetPassword = new _ResetPasswordService.default(fakeUsersRepository, fakeUserTokensRepository, fakeHashProvider);
+    resetPassword = new _ResetPasswordService.default(fakeUsersRepository, fakeUsersTokensRepository, fakeHashProvider);
   });
   it('should be able to reset the password', async () => {
     const user = await fakeUsersRepository.create({
-      name: 'Thiago Marinho',
-      email: 'tgmarinho@gmail.com',
+      name: 'John Doe',
+      email: 'johndoe@example.com',
       password: '123456'
     });
-    const userToken = await fakeUserTokensRepository.generate(user.id);
+    const {
+      token
+    } = await fakeUsersTokensRepository.generate(user.id);
     const generateHash = jest.spyOn(fakeHashProvider, 'generateHash');
     await resetPassword.execute({
       password: '123123',
-      token: userToken.token
+      token
     });
-    const userUpdated = await fakeUsersRepository.findById(user.id);
+    const updateUser = await fakeUsersRepository.findById(user.id);
     expect(generateHash).toHaveBeenCalledWith('123123');
-    expect(userUpdated === null || userUpdated === void 0 ? void 0 : userUpdated.password).toBe('123123');
+    expect(updateUser === null || updateUser === void 0 ? void 0 : updateUser.password).toBe('123123');
   });
   it('should not be able to reset the password with non-existing token', async () => {
     await expect(resetPassword.execute({
       token: 'non-existing-token',
-      password: '123457'
+      password: '123456'
     })).rejects.toBeInstanceOf(_AppError.default);
   });
   it('should not be able to reset the password with non-existing user', async () => {
     const {
       token
-    } = await fakeUserTokensRepository.generate('non-existing-user');
+    } = await fakeUsersTokensRepository.generate('non-existing-user');
     await expect(resetPassword.execute({
       token,
-      password: '123457'
+      password: '123456'
     })).rejects.toBeInstanceOf(_AppError.default);
   });
-  it('should not be able to reset the password if passed more than two hours', async () => {
+  it('should not be able to reset the password after two hours', async () => {
     const user = await fakeUsersRepository.create({
-      name: 'Thiago Marinho',
-      email: 'tgmarinho@gmail.com',
+      name: 'John Doe',
+      email: 'johndoe@example.com',
       password: '123456'
     });
     const {
       token
-    } = await fakeUserTokensRepository.generate(user.id);
+    } = await fakeUsersTokensRepository.generate(user.id);
     jest.spyOn(Date, 'now').mockImplementationOnce(() => {
       const customDate = new Date();
       return customDate.setHours(customDate.getHours() + 3);

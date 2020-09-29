@@ -8,8 +8,8 @@ var _default = {
   driver: process.env.MAIL_DRIVER || 'ethereal',
   defaults: {
     from: {
-      email: 'ricardogomesweb@gmail.com',
-      name: ' Teste'
+      email: 'ihenrits@gmail.com',
+      name: 'Henrique Tavares'
     }
   }
 };

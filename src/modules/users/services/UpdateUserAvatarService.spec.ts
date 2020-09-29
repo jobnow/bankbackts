@@ -1,13 +1,15 @@
 import AppError from '@shared/errors/AppError';
+
 import FakeStorageProvider from '@shared/container/providers/StorageProvider/fakes/FakeStorageProvider';
-import FakeUsersRepository from '../repositories/fakes/FakeUsersRepository';
+import FakeUsersRepository from '@modules/users/repositories/fakes/FakeUsersRepository';
+
 import UpdateUserAvatarService from './UpdateUserAvatarService';
 
-describe('UpdateUserAvatar', () => {
-  let fakeUsersRepository: FakeUsersRepository;
-  let fakeStorageProvider: FakeStorageProvider;
-  let updateUserAvatar: UpdateUserAvatarService;
+let fakeStorageProvider: FakeStorageProvider;
+let fakeUsersRepository: FakeUsersRepository;
+let updateUserAvatar: UpdateUserAvatarService;
 
+describe('UpdateUserAvatar', () => {
   beforeEach(() => {
     fakeUsersRepository = new FakeUsersRepository();
     fakeStorageProvider = new FakeStorageProvider();
@@ -18,10 +20,10 @@ describe('UpdateUserAvatar', () => {
     );
   });
 
-  it('should be able to update avatar of user', async () => {
+  it('should be able to update user avatar', async () => {
     const user = await fakeUsersRepository.create({
-      name: 'Thiago Marinho',
-      email: 'tgmarinho@gmail.com',
+      name: 'John Doe',
+      email: 'johndoe@example.com',
       password: '123456',
     });
 
@@ -33,8 +35,8 @@ describe('UpdateUserAvatar', () => {
     expect(user.avatar).toBe('avatar.jpg');
   });
 
-  it('should not be able to update avatar from non existing user', async () => {
-    expect(
+  it('should not be able to update user avatar when user not existing', async () => {
+    await expect(
       updateUserAvatar.execute({
         user_id: 'non-existing-user',
         avatarFilename: 'avatar.jpg',
@@ -42,12 +44,12 @@ describe('UpdateUserAvatar', () => {
     ).rejects.toBeInstanceOf(AppError);
   });
 
-  it('should delete old avatar when updating new one', async () => {
+  it('should be delete old avatar when updating new one', async () => {
     const deleteFile = jest.spyOn(fakeStorageProvider, 'deleteFile');
 
     const user = await fakeUsersRepository.create({
-      name: 'Thiago Marinho',
-      email: 'tgmarinho@gmail.com',
+      name: 'John Doe',
+      email: 'johndoe@example.com',
       password: '123456',
     });
 

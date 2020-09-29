@@ -5,13 +5,13 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _AppError = _interopRequireDefault(require("../../../shared/errors/AppError"));
-
 var _tsyringe = require("tsyringe");
 
-var _IHashProvider = _interopRequireDefault(require("../providers/HashProvider/models/IHashProvider"));
+var _AppError = _interopRequireDefault(require("../../../shared/errors/AppError"));
 
 var _IUsersRepository = _interopRequireDefault(require("../repositories/IUsersRepository"));
+
+var _IHashProvider = _interopRequireDefault(require("../providers/HashProvider/models/IHashProvider"));
 
 var _dec, _dec2, _dec3, _dec4, _dec5, _class;
 
@@ -31,40 +31,39 @@ let UpdateProfileService = (_dec = (0, _tsyringe.injectable)(), _dec2 = function
     user_id,
     name,
     email,
-    old_password,
-    password
+    password,
+    old_password
   }) {
     const user = await this.usersRepository.findById(user_id);
 
     if (!user) {
-      throw new _AppError.default('User not found');
+      throw new _AppError.default('User not found.');
     }
 
     const userWithUpdatedEmail = await this.usersRepository.findByEmail(email);
 
     if (userWithUpdatedEmail && userWithUpdatedEmail.id !== user_id) {
-      throw new _AppError.default('Already have a user with this email');
+      throw new _AppError.default('E-mail already in use.');
     }
 
     user.name = name;
     user.email = email;
 
     if (password && !old_password) {
-      throw new _AppError.default('You need to inform the old password to set a new password');
+      throw new _AppError.default('You need to inform the old password to set a new password.');
     }
 
     if (password && old_password) {
       const checkOldPassword = await this.hashProvider.compareHash(old_password, user.password);
 
       if (!checkOldPassword) {
-        throw new _AppError.default('Old password does not macth');
+        throw new _AppError.default('Old password does not match.');
       }
 
       user.password = await this.hashProvider.generateHash(password);
     }
 
-    await this.usersRepository.save(user);
-    return user;
+    return this.usersRepository.save(user);
   }
 
 }) || _class) || _class) || _class) || _class) || _class);

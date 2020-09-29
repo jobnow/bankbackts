@@ -1,10 +1,10 @@
 import {
   ObjectID,
+  ObjectIdColumn,
   Entity,
   Column,
   CreateDateColumn,
   UpdateDateColumn,
-  ObjectIdColumn,
 } from 'typeorm';
 
 @Entity('notifications')
@@ -25,7 +25,7 @@ class Notification {
   created_at: Date;
 
   @UpdateDateColumn()
-  update_at: Date;
+  updated_at: Date;
 }
 
 export default Notification;

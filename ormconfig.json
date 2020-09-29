@@ -1,0 +1,32 @@
+[
+  {
+    "name": "default",
+    "type": "postgres",
+    "host": "database.cu19vpylhqlp.us-east-1.rds.amazonaws.com",
+    "port": 5432,
+    "username": "postgres",
+    "password": "d1g2d3g4",
+    "database": "",
+    "ssl": true,
+    "entities": [
+      "dist/modules/**/infra/typeorm/entities/*.js"
+    ],
+    "migrations": [
+      "dist/shared/infra/typeorm/migrations/*.js"
+    ],
+    "cli": {
+      "migrationsDir": "./src/shared/infra/typeorm/migrations"
+    }
+  },
+  {
+    "name": "mongo",
+    "type": "mongodb",
+    "host": "localhost",
+    "port": 27017,
+    "database": "gobarber11",
+    "useUnifiedTopology": true,
+    "entities": [
+      "./src/modules/**/infra/typeorm/schemas/*.ts"
+    ]
+  }
+]

@@ -5,9 +5,9 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _AppError = _interopRequireDefault(require("../../../shared/errors/AppError"));
-
 var _tsyringe = require("tsyringe");
+
+var _AppError = _interopRequireDefault(require("../../../shared/errors/AppError"));
 
 var _IUsersRepository = _interopRequireDefault(require("../repositories/IUsersRepository"));
 
@@ -28,7 +28,7 @@ let ShowProfileService = (_dec = (0, _tsyringe.injectable)(), _dec2 = function (
     const user = await this.usersRepository.findById(user_id);
 
     if (!user) {
-      throw new _AppError.default('User not found');
+      throw new _AppError.default('User not found.');
     }
 
     return user;

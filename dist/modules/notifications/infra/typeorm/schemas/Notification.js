@@ -29,7 +29,7 @@ let Notification = (_dec = (0, _typeorm.Entity)('notifications'), _dec2 = (0, _t
 
     _initializerDefineProperty(this, "created_at", _descriptor5, this);
 
-    _initializerDefineProperty(this, "update_at", _descriptor6, this);
+    _initializerDefineProperty(this, "updated_at", _descriptor6, this);
   }
 
 }, _temp), (_descriptor = _applyDecoratedDescriptor(_class2.prototype, "id", [_dec2, _dec3], {
@@ -57,7 +57,7 @@ let Notification = (_dec = (0, _typeorm.Entity)('notifications'), _dec2 = (0, _t
   enumerable: true,
   writable: true,
   initializer: null
-}), _descriptor6 = _applyDecoratedDescriptor(_class2.prototype, "update_at", [_dec12, _dec13], {
+}), _descriptor6 = _applyDecoratedDescriptor(_class2.prototype, "updated_at", [_dec12, _dec13], {
   configurable: true,
   enumerable: true,
   writable: true,

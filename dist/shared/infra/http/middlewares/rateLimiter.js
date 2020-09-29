@@ -5,11 +5,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = rateLimiter;
 
-var _rateLimiterFlexible = require("rate-limiter-flexible");
-
 var _redis = _interopRequireDefault(require("redis"));
 
 var _AppError = _interopRequireDefault(require("../../../errors/AppError"));
+
+var _rateLimiterFlexible = require("rate-limiter-flexible");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -17,8 +17,7 @@ const redisClient = _redis.default.createClient({
   host: process.env.REDIS_HOST,
   port: Number(process.env.REDIS_PORT),
   password: process.env.REDIS_PASS || undefined
-}); // TODO limitar requisição por tempo caso o usuário persista 5/1 requisições.
-
+});
 
 const limiter = new _rateLimiterFlexible.RateLimiterRedis({
   storeClient: redisClient,

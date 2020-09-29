@@ -10,19 +10,19 @@ var _UpdateUserAvatarService = _interopRequireDefault(require("./UpdateUserAvata
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+let fakeStorageProvider;
+let fakeUsersRepository;
+let updateUserAvatar;
 describe('UpdateUserAvatar', () => {
-  let fakeUsersRepository;
-  let fakeStorageProvider;
-  let updateUserAvatar;
   beforeEach(() => {
     fakeUsersRepository = new _FakeUsersRepository.default();
     fakeStorageProvider = new _FakeStorageProvider.default();
     updateUserAvatar = new _UpdateUserAvatarService.default(fakeUsersRepository, fakeStorageProvider);
   });
-  it('should be able to update avatar of user', async () => {
+  it('should be able to update user avatar', async () => {
     const user = await fakeUsersRepository.create({
-      name: 'Thiago Marinho',
-      email: 'tgmarinho@gmail.com',
+      name: 'John Doe',
+      email: 'johndoe@example.com',
       password: '123456'
     });
     await updateUserAvatar.execute({
@@ -31,17 +31,17 @@ describe('UpdateUserAvatar', () => {
     });
     expect(user.avatar).toBe('avatar.jpg');
   });
-  it('should not be able to update avatar from non existing user', async () => {
-    expect(updateUserAvatar.execute({
+  it('should not be able to update user avatar when user not existing', async () => {
+    await expect(updateUserAvatar.execute({
       user_id: 'non-existing-user',
       avatarFilename: 'avatar.jpg'
     })).rejects.toBeInstanceOf(_AppError.default);
   });
-  it('should delete old avatar when updating new one', async () => {
+  it('should be delete old avatar when updating new one', async () => {
     const deleteFile = jest.spyOn(fakeStorageProvider, 'deleteFile');
     const user = await fakeUsersRepository.create({
-      name: 'Thiago Marinho',
-      email: 'tgmarinho@gmail.com',
+      name: 'John Doe',
+      email: 'johndoe@example.com',
       password: '123456'
     });
     await updateUserAvatar.execute({

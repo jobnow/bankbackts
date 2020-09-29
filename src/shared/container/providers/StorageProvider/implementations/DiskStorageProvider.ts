@@ -1,14 +1,15 @@
 import fs from 'fs';
 import path from 'path';
 import uploadConfig from '@config/upload';
-import IStorageProvider from '../models/IStorageProvider';
+import IStorageProvider from '@shared/container/providers/StorageProvider/models/IStorageProvider';
 
 class DiskStorageProvider implements IStorageProvider {
   public async saveFile(file: string): Promise<string> {
     await fs.promises.rename(
-      path.resolve(uploadConfig.tempFolder, file),
+      path.resolve(uploadConfig.tmpFolder, file),
       path.resolve(uploadConfig.uploadsFolder, file),
     );
+
     return file;
   }
 
@@ -17,7 +18,7 @@ class DiskStorageProvider implements IStorageProvider {
 
     try {
       await fs.promises.stat(filePath);
-    } catch {
+    } catch (err) {
       return;
     }
 

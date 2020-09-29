@@ -7,13 +7,13 @@ exports.default = void 0;
 
 var _tsyringe = require("tsyringe");
 
-var _UpdateUserAvatarService = _interopRequireDefault(require("../../../services/UpdateUserAvatarService"));
-
 var _classTransformer = require("class-transformer");
+
+var _UpdateUserAvatarService = _interopRequireDefault(require("../../../services/UpdateUserAvatarService"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-class UserAvatarControllerController {
+class UsersController {
   async update(request, response) {
     const updateUserAvatar = _tsyringe.container.resolve(_UpdateUserAvatarService.default);
 
@@ -26,4 +26,4 @@ class UserAvatarControllerController {
 
 }
 
-exports.default = UserAvatarControllerController;
+exports.default = UsersController;

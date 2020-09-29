@@ -5,15 +5,15 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
+var _tsyringe = require("tsyringe");
+
 var _AppError = _interopRequireDefault(require("../../../shared/errors/AppError"));
 
-var _tsyringe = require("tsyringe");
+var _IUsersRepository = _interopRequireDefault(require("../repositories/IUsersRepository"));
 
 var _IHashProvider = _interopRequireDefault(require("../providers/HashProvider/models/IHashProvider"));
 
 var _ICacheProvider = _interopRequireDefault(require("../../../shared/container/providers/CacheProvider/models/ICacheProvider"));
-
-var _IUsersRepository = _interopRequireDefault(require("../repositories/IUsersRepository"));
 
 var _dec, _dec2, _dec3, _dec4, _dec5, _dec6, _class;
 
@@ -44,7 +44,7 @@ let CreateUserService = (_dec = (0, _tsyringe.injectable)(), _dec2 = function (t
     }
 
     const hashedPassword = await this.hashProvider.generateHash(password);
-    const user = await this.usersRepository.create({
+    const user = this.usersRepository.create({
       name,
       email,
       password: hashedPassword

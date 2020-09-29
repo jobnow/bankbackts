@@ -2,11 +2,11 @@
   {
     "name": "default",
     "type": "postgres",
-    "host": "database.cu19vpylhqlp.us-east-1.rds.amazonaws.com",
+    "host": "ec2-204-236-228-169.compute-1.amazonaws.com",
     "port": 5432,
-    "username": "postgres",
-    "password": "d1g2d3g4",
-    "database": "",
+    "username": "squqfrygyddlyv",
+    "password": "bae7efd430f2ce8fde1ca5e5b2da97b6814989a298f5c96c3390c12d908337ea",
+    "database": "d5rdk62eeb5aug",
     "ssl": true,
     "entities": [
       "dist/modules/**/infra/typeorm/entities/*.js"

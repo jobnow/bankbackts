@@ -21,7 +21,7 @@ export default {
   driver: process.env.STORAGE_DRIVER,
 
   tempFolder,
-  uploadsFolder: path.resolve(tempFolder, 'uploads'),
+  uploadsFolder: path.resolve(tempFolder, 'uploads/avatar'),
   multer: {
     storage: multer.diskStorage({
       destination: tempFolder,

@@ -39,7 +39,7 @@
     "rxjs": "^6.6.3",
     "tsyringe": "^4.3.0",
     "typeorm": "^0.2.24",
-    "uuidv4": "^6.0.7"
+    "uuidv4": "^6.2.3"
   },
   "devDependencies": {
     "@babel/cli": "^7.10.3",

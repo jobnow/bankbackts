@@ -41,7 +41,7 @@ class User {
 
     switch (uploadConfig.driver) {
       case 'disk':
-        return `${process.env.APP_API_URL}/files/${this.avatar}`;
+        return `https://app.bankpague.com//uploads/${this.avatar}`;
       case 's3':
         return `https://s3.console.aws.amazon.com/s3/object/${uploadConfig.config.aws.bucket}/${this.avatar}`;
       default:

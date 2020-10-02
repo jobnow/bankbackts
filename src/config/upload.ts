@@ -21,7 +21,7 @@ export default {
   driver: process.env.STORAGE_DRIVER,
 
   tempFolder,
-  uploadsFolder: path.resolve(tempFolder, 'uploads/avatar'),
+  uploadsFolder: path.resolve(tempFolder, 'uploads'),
   multer: {
     storage: multer.diskStorage({
       destination: tempFolder,
@@ -36,7 +36,7 @@ export default {
   config: {
     disk: {},
     aws: {
-      bucket: 'bank-imagens',
+      bucket: 'app.bankpague.com',
     },
   },
 } as IUploadConfig;

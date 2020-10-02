@@ -36,7 +36,7 @@ export default {
   config: {
     disk: {},
     aws: {
-      bucket: 'www.app.bankpague.com',
+      bucket: 'bank-imagens',
     },
   },
 } as IUploadConfig;

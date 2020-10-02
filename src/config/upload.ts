@@ -31,7 +31,7 @@ export default {
   multer: {
     storage: multer.diskStorage({
       destination: tmpFolder,
-      filename(request, file, callback) {
+      filename: (request, file, callback) => {
         const fileHash = crypto.randomBytes(10).toString('HEX');
         const fileName = `${fileHash}-${file.originalname}`;
 
@@ -43,7 +43,7 @@ export default {
   config: {
     disk: {},
     aws: {
-      bucket: 'app.bankpague.com',
+      bucket: 'bank-imagens',
     },
   },
 } as IUploadConfig;

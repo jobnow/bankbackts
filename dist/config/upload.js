@@ -5,23 +5,23 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
+var _path = _interopRequireDefault(require("path"));
+
 var _crypto = _interopRequireDefault(require("crypto"));
 
 var _multer = _interopRequireDefault(require("multer"));
 
-var _path = _interopRequireDefault(require("path"));
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-const tempFolder = _path.default.resolve(__dirname, '..', '..', 'temp');
+const tmpFolder = _path.default.resolve(__dirname, '..', '..', 'tmp');
 
 var _default = {
   driver: process.env.STORAGE_DRIVER,
-  tempFolder,
-  uploadsFolder: _path.default.resolve(tempFolder, 'uploads'),
+  tmpFolder,
+  uploadsFolder: _path.default.resolve(tmpFolder, 'uploads'),
   multer: {
     storage: _multer.default.diskStorage({
-      destination: tempFolder,
+      destination: tmpFolder,
 
       filename(request, file, callback) {
         const fileHash = _crypto.default.randomBytes(10).toString('HEX');
@@ -35,7 +35,7 @@ var _default = {
   config: {
     disk: {},
     aws: {
-      bucket: 'www.app.bankpague.com'
+      bucket: 'app-gobarber'
     }
   }
 };

@@ -50,7 +50,7 @@ let User = (_dec = (0, _typeorm.Entity)('users'), _dec2 = (0, _typeorm.PrimaryGe
         return `${process.env.APP_API_URL}/files/${this.avatar}`;
 
       case 's3':
-        return `http://${_upload.default.config.aws.bucket}.s3.amazonaws.com/${this.avatar}`;
+        return `https://${_upload.default.config.aws.bucket}.s3.amazonaws.com/${this.avatar}`;
 
       default:
         return null;

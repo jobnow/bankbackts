@@ -21,7 +21,7 @@ class S3StorageProvider {
   constructor() {
     this.client = void 0;
     this.client = new _awsSdk.default.S3({
-      region: 'us-east-1'
+      region: ''
     });
   }
 

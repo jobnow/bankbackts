@@ -9,7 +9,7 @@ class S3StorageProvider implements IStorageProvider {
   private client: S3;
 
   constructor() {
-    this.client = new aws.S3({ region: 'us-east-1' });
+    this.client = new aws.S3({ region: '' });
   }
 
   public async saveFile(file: string): Promise<string> {

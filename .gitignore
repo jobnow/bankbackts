@@ -2,4 +2,3 @@
 .vercel
 dist
 node_modules
-ant

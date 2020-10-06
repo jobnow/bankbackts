@@ -8,6 +8,9 @@
     "serve": "cross-env NODE_ENV=production node dist/server.admin.js",
     "start": "cross-env NODE_ENV=production node dist/server.shop.js"
   },
+  "engines": {
+    "node": "12.x"
+  },
   "dependencies": {
     "apollo-server-express": "^2.16.1",
     "class-transformer": "^0.3.1",

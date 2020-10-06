@@ -1,13 +1,4 @@
-.idea/
-.vscode/
-node_modules/
-build/
-temp/
-coverage
-ormconfig.json
+.now
+.vercel
 dist
-
-tmp/*
-!tmp/.gitkeep
-package-lock.json
-yarn.lock
+node_modules
